@@ -35,24 +35,24 @@ let
       doCheck = false;  # too much
     };
 
-    umaplearn = pythonPackages.buildPythonPackage rec {
-      pname = "umap-learn";
-      version = "0.3.7";
+    # umaplearn = pythonPackages.buildPythonPackage rec {
+    #   pname = "umap-learn";
+    #   version = "0.3.7";
 
-      src = pythonPackages.fetchPypi {
-        inherit pname version;
-        sha256 = "9c81c9cdc46cc8a87adf1972eeac5ec69bbe9cec440c0e4995fc68a015aafeb9";
-      };
+    #   src = pythonPackages.fetchPypi {
+    #     inherit pname version;
+    #     sha256 = "9c81c9cdc46cc8a87adf1972eeac5ec69bbe9cec440c0e4995fc68a015aafeb9";
+    #   };
 
-      propagatedBuildInputs = with pythonPackages; [
-        numpy
-        scipy
-        numba
-        scikitlearn
-        ];
+    #   propagatedBuildInputs = with pythonPackages; [
+    #     numpy
+    #     scipy
+    #     numba
+    #     scikitlearn
+    #     ];
 
-      doCheck = false;  # too much
-    };
+    #   doCheck = false;  # too much
+    # };
 
     jupyter_c_kernel = pythonPackages.buildPythonPackage rec {
       pname = "jupyter_c_kernel";
@@ -189,6 +189,11 @@ let
 
     # Performance tests failing on different computers
     pathpy = pythonPackages.pathpy.overridePythonAttrs (_:{
+      doCheck = false;
+    });
+
+    # Some tests failing
+    scikitlearn = pythonPackages.scikitlearn.overridePythonAttrs (_:{
       doCheck = false;
     });
 
