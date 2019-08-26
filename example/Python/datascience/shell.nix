@@ -9,8 +9,8 @@ let
             scipy
             pandas
             matplotlib
-            seaborn
-            umaplearn
+            # seaborn
+            # umaplearn
             scikitlearn
             ];
       };
