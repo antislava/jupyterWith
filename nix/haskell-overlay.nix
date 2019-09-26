@@ -34,6 +34,7 @@ in
         # when building ihaskell
         hlint = hspkgs.callHackage "hlint" "2.1.11" {};
         zeromq4-haskell = dontCheck hspkgs.zeromq4-haskell;
+        hopenssl = dontCheck hspkgs.hopenssl;
         ihaskell          = pkgs.haskell.lib.overrideCabal (
                              hspkgs.callCabal2nix "ihaskell" ihaskellSrc {}) (_drv: {
            preCheck = ''

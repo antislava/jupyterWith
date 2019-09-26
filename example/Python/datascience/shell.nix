@@ -12,6 +12,7 @@ let
             seaborn
             umap-learn
             scikitlearn
+            # tensorflow
             ];
       };
 
