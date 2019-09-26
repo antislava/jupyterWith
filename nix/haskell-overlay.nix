@@ -4,9 +4,14 @@ let
   ihaskellSrc = pkgs.fetchFromGitHub {
     owner = "gibiansky";
     repo = "IHaskell";
-    rev = "c070adf8828dad378bb0048483c16f2640a339b5";
-    sha256 = "1v8hvr75lg3353qgm18k43b3wl040zkbhkklw6ygv5w8zzb3x826";
+    rev = "bfa80bce5ca96bc2a32eb4b90fa5d9395cb3f2e5";
+    sha256 = "14p04w7fp0r4k95ym7fw3dy5fmnbid28pvqgmclvyzpq2dlvb78f";
   };
+
+# "url": "https://github.com/gibiansky/IHaskell",
+# "rev": "bfa80bce5ca96bc2a32eb4b90fa5d9395cb3f2e5",
+# "date": "2019-09-26T11:06:27-04:00",
+# "sha256": "14p04w7fp0r4k95ym7fw3dy5fmnbid28pvqgmclvyzpq2dlvb78f",
 
   dataHaskellCoreSrc = pkgs.fetchFromGitHub {
     owner = "DataHaskell";
@@ -17,7 +22,8 @@ let
 in
 
 {
-  haskellPackages = pkgs.haskell.packages.ghc844.override {
+  haskellPackages = pkgs.haskell.packages.ghc865.override {
+  # haskellPackages = pkgs.haskell.packages.ghc844.override {
     overrides = self: hspkgs:
       let
         callDisplayPackage = name:
@@ -32,7 +38,9 @@ in
         # the current version of hlint in nixpkgs uses a different
         # version of haskell-src-exts, which creates incompatibilities
         # when building ihaskell
-        hlint = hspkgs.callHackage "hlint" "2.1.11" {};
+        # hlint = hspkgs.callHackage "hlint" "2.1.11" {};
+        # hlint = doJaibreak hspkgs.hlint;
+
         zeromq4-haskell = dontCheck hspkgs.zeromq4-haskell;
         hopenssl = dontCheck hspkgs.hopenssl;
         ihaskell          = pkgs.haskell.lib.overrideCabal (
@@ -79,9 +87,10 @@ in
 
         # For Frames
         # Latest version of singletons incompatible with GHC 8.4.4
-        vinyl_0_10_0 = hspkgs.vinyl_0_10_0_1;
-        singletons = dontCheck (hspkgs.callHackage "singletons" "2.4.1" {});
-        th-desugar = hspkgs.callHackage "th-desugar" "1.8" {};
+        # vinyl_0_10_0 = hspkgs.vinyl_0_10_0_1;
+        vinyl = pkgs.haskell.lib.dontCheck hspkgs.vinyl;
+        # singletons = dontCheck (hspkgs.callHackage "singletons" "2.4.1" {});
+        # th-desugar = hspkgs.callHackage "th-desugar" "1.8" {};
 
         # For funflow
         funflow = pkgs.haskell.lib.dontCheck hspkgs.funflow;

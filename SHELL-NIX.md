@@ -1,0 +1,1 @@
+/home/slava/repos/meta/meta-tweag/SHELL-NIX.md
