@@ -1,8 +1,23 @@
 let
   jupyterLibPath = ../../..;
   nixpkgsPath = jupyterLibPath + "/nix";
-  pkgs = import nixpkgsPath {config = {allowBroken = true;};};
-  jupyter = import jupyterLibPath { pkgs=pkgs; };
+  pkgs = import nixpkgsPath { config = { allowBroken = true; }; };
+  jupyter = import jupyterLibPath {
+    pkgs=pkgs;
+    # Added to master 2019-10. TODO test this overlay.nix
+    # overlays = [ (import ./overlay.nix) ];
+  };
+
+  dataHaskellCoreSrc = pkgs.fetchFromGitHub {
+    owner = "DataHaskell";
+    repo = "dh-core";
+    rev = "3fd4d8d62e12452745dc484459d1a5874f523df9";
+    sha256 = "12z0jfhwpvk5gd1wckasy346aqm0280pv5h7jl1grpk797zjdswx";
+  };
+
+  hspkgs = pkgs.haskellPackages;
+  dh-core = hspkgs.callCabal2nix "dh-core" "${dataHaskellCoreSrc}/dh-core" {};
+  analyze = hspkgs.callCabal2nix "analyze" "${dataHaskellCoreSrc}/analyze" {};
 
   ihaskellWithPackages = jupyter.kernels.iHaskellWith {
       name = "dataHaskell";

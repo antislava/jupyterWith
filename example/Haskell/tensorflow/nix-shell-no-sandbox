@@ -1,0 +1,2 @@
+# Potential node installer errors without this option
+nix-shell --option build-use-sandbox false

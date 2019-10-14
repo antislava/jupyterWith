@@ -1,8 +1,12 @@
 let
   jupyterLibPath = ../../..;
   nixpkgsPath = jupyterLibPath + "/nix";
-  pkgs = import nixpkgsPath {config = {allowBroken = true;};};
-  jupyter = import jupyterLibPath { pkgs=pkgs; };
+  pkgs = import nixpkgsPath { config = { allowBroken = true; }; };
+  jupyter = import jupyterLibPath {
+    pkgs=pkgs;
+    # Added to master 2019-10. TODO test this overlay.nix
+    # overlays = [ (import ./overlay.nix) ];
+  };
 
   ihaskellWithPackages = jupyter.kernels.iHaskellWith {
       name = "Frames";
