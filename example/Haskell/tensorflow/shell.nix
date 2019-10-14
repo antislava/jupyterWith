@@ -1,7 +1,7 @@
 let
   jupyterLibPath = ../../..;
   nixpkgsPath = jupyterLibPath + "/nix";
-  pkgs = import nixpkgsPath {};
+  pkgs = import nixpkgsPath {config = {allowBroken = true;};};
   jupyter = import jupyterLibPath { pkgs=pkgs; };
 
   ihaskellWithPackages = jupyter.kernels.iHaskellWith {

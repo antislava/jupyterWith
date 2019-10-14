@@ -31,7 +31,8 @@ in
             "ihaskell-${name}"
             "${ihaskellSrc}/ihaskell-display/ihaskell-${name}"
             {};
-        dontCheck = pkgs.haskell.lib.dontCheck;
+        dontCheck  = pkgs.haskell.lib.dontCheck;
+        doJaibreak = pkgs.haskell.lib.doJaibreak;
       in
       {
         # -- ihaskell overrides
@@ -93,13 +94,15 @@ in
         # th-desugar = hspkgs.callHackage "th-desugar" "1.8" {};
 
         # For funflow
-        funflow = pkgs.haskell.lib.dontCheck hspkgs.funflow;
+        funflow = dontCheck hspkgs.funflow;
 
         # For TensorFlow, tests not passing
         conduit-extra = dontCheck hspkgs.conduit-extra;
 
         # For diagrams
         diagrams-contrib = dontCheck hspkgs.diagrams-contrib;
+
+        mainland-pretty = dontCheck (doJaibreak hspkgs.mainland-pretty);
       };
   };
 }
