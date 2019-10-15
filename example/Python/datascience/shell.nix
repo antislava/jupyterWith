@@ -12,7 +12,7 @@ let
             seaborn
             umap-learn
             scikitlearn
-            # tensorflow
+            # tensorflow # - massive bazel build!
             ];
       };
 
